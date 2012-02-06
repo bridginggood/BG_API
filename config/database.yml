@@ -38,5 +38,5 @@ production:
   database: BG
   pool: 5
   username: bg_user
-  password: good!@#$
+  password: good##)^
   socket: /var/run/mysqld/mysqld.sock
