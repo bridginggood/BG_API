@@ -1,4 +1,14 @@
 Api::Application.routes.draw do
+	get "business_info/index"
+
+  get "business_info/create"
+
+  get "business_info/read"
+
+  get "business_info/update"
+
+  get "business_info/delete"
+
   # The priority is based upon order of creation:
   # first created -> highest priority.
 
