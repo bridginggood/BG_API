@@ -20,4 +20,6 @@ class BusinessInfo < ActiveRecord::Base
 	reverse_geocoded_by :Latitude, :Longitude
 	after_validation :reverse_geocode
 	geocoded_by :BusinessAddress
+
+	has_many :support
 end

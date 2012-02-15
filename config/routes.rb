@@ -1,4 +1,10 @@
 Api::Application.routes.draw do
+  post "auth/LoginByFacebookFromMobile"
+
+  post "auth/LoginByTokenFromMobile"
+
+  post "auth/LoginByUserFromMobile"
+
 	get "business_info/index"
 
   get "business_info/create"

@@ -8,6 +8,7 @@
 #
 # And be sure to use new-style password hashing:
 #   http://dev.mysql.com/doc/refman/5.0/en/old-client.html
+
 development:
   adapter: mysql2
   encoding: utf8
@@ -17,6 +18,7 @@ development:
   username: bg_dev
   password: good##)^
   socket: /var/run/mysqld/mysqld.sock
+  flags: <%= 65536 | 131072 %>
 
 # Warning: The database defined as "test" will be erased and
 # re-generated from your development database when you run "rake".
@@ -30,13 +32,15 @@ test:
   username: bg_dev
   password: good##)^
   socket: /var/run/mysqld/mysqld.sock
+  flags: <%= 65536 | 131072 %>
 
 production:
   adapter: mysql2
   encoding: utf8
   reconnect: false
-  database: BG_PROD
+  database: BG
   pool: 5
-  username: bg_prod
-  password: good!@#$
+  username: bg_user
+  password: good##)^
   socket: /var/run/mysqld/mysqld.sock
+  flags: <%= 65536 | 131072 %>
