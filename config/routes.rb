@@ -1,9 +1,15 @@
 Api::Application.routes.draw do
+  post "push/android"
+
+  post "push/ios"
+
   post "auth/LoginByFacebookFromMobile"
 
   post "auth/LoginByTokenFromMobile"
 
   post "auth/LoginByUserFromMobile"
+
+	post "auth/CreatePushNotificationAndroid"
 
 	get "business_info/index"
 

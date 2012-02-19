@@ -1,9 +1,8 @@
 class AuthController < ApplicationController
   def LoginByFacebookFromMobile
-		#query = "call LoginByFacebookFromMobile('"+params[:UserEmail]+"','"+
-		#			params[:UserFirstName]+"','"+ params[:UserLastName]+"', @code, @msg)"
 		query = "call LoginByFacebookFromMobile('"+params[:UserEmail]+"','"+
-					params[:UserFirstName]+"','"+ params[:UserLastName]+"')"
+					params[:UserFirstName]+"','"+ params[:UserLastName]+"','"+
+					params[:DeviceId]+"','" + params[:DeviceType] + "')"
 		@result = MySQL_SP.call(query)
 	
 		#If SP returned a result,
@@ -15,7 +14,6 @@ class AuthController < ApplicationController
   end
 
   def LoginByTokenFromMobile
-		#query = "call LoginByTokenFromMobile('"+params[:TokenString]+"', @code, @msg)"
 		query = "call LoginByTokenFromMobile('"+params[:TokenString]+"')"
 		@result = MySQL_SP.call(query)
 	
@@ -28,12 +26,9 @@ class AuthController < ApplicationController
   end
 
   def LoginByUserFromMobile
-		#query = "call LoginByUserFromMobile('"+params[:UserEmail]+"', '"+
-		#				params[:UserPassword]+"', @code, @msg)"
 		query = "call LoginByUserFromMobile('"+params[:UserEmail]+"', '"+
-						params[:UserPassword]+"')"
+						params[:UserPassword]+"', '"+params[:DeviceId]+"','"+params[:DeviceType]+"')"
 		@result = MySQL_SP.call(query)
-		@resultCode = MySQL_SP.call ("select @code, @msg")
 	
 		#If SP returned a result,
 		if !@result.nil?
@@ -43,4 +38,16 @@ class AuthController < ApplicationController
 		else
 		end
   end
+
+	def CreatePushNotificationAndroid
+		query = "call CreatePushNotificationAndroid('"+params[:UserEmail]+"', '"+ params[:C2DMRegId]+"')"
+		@result = MySQL_SP.call(query)
+		
+		if !@result.nil?
+			respond_to do |format|
+				format.json { render:json => @result.first.to_json}
+			end
+		else
+		end
+	end
 end

@@ -11,6 +11,8 @@ gem 'geocoder'
 gem 'factory_girl' # used to pass Geocoder
 #gem 'factory_girl_rails' # used to pass Geocoder
 
+gem 'speedy_c2dm'
+
 
 # Gems used only for assets and not required
 # in production environments by default.
