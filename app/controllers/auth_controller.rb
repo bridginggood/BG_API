@@ -40,7 +40,7 @@ class AuthController < ApplicationController
   end
 
 	def CreatePushNotificationAndroid
-		query = "call CreatePushNotificationAndroid('"+params[:UserEmail]+"', '"+ params[:C2DMRegId]+"')"
+		query = "call CreatePushNotificationAndroid('"+params[:UserEmail]+"', '"+ params[:C2DMRegId]+"','"+params[:DeviceId]+"')"
 		@result = MySQL_SP.call(query)
 		
 		if !@result.nil?

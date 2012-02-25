@@ -11,7 +11,12 @@ gem 'geocoder'
 gem 'factory_girl' # used to pass Geocoder
 #gem 'factory_girl_rails' # used to pass Geocoder
 
+#gem 'apn_on_rails'
+gem 'apn_on_rails', :git => 'https://github.com/natescherer/apn_on_rails.git', :branch => 'rails3'
 gem 'speedy_c2dm'
+gem 'rqrcode'
+gem 'rqrcode_png'
+#gem 'qrencoder'
 
 
 # Gems used only for assets and not required
