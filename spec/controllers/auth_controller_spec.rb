@@ -2,23 +2,23 @@ require 'spec_helper'
 
 describe AuthController do
 
-  describe "GET 'LoginByFacebookFromMobile'" do
+  describe "POST 'LoginByFacebookFromMobile'" do
     it "returns http success" do
-      get 'LoginByFacebookFromMobile'
+      post 'LoginByFacebookFromMobile'
       response.should be_success
     end
   end
 
-  describe "GET 'LoginByTokenFromMobile'" do
+  describe "POST 'LoginByTokenFromMobile'" do
     it "returns http success" do
-      get 'LoginByTokenFromMobile'
+      post 'LoginByTokenFromMobile'
       response.should be_success
     end
   end
 
-  describe "GET 'LoginByUserFromMobile'" do
+  describe "POST 'LoginByUserFromMobile'" do
     it "returns http success" do
-      get 'LoginByUserFromMobile'
+      post 'LoginByUserFromMobile'
       response.should be_success
     end
   end

@@ -1,25 +1,19 @@
 Api::Application.routes.draw do
   post "push/android"
-
-  post "push/ios"
-
+  get "push/ios"
+	post "push/ios"
   post "auth/LoginByFacebookFromMobile"
-
   post "auth/LoginByTokenFromMobile"
-
   post "auth/LoginByUserFromMobile"
-
 	post "auth/CreatePushNotificationAndroid"
-
 	get "business_info/index"
-
   get "business_info/create"
-
   get "business_info/read"
-
   get "business_info/update"
-
   get "business_info/delete"
+
+	#Redirection
+	#match "/media/qrcode/:name" => redirect{|params| "https://s3.amazonaws.com/BG_DEV_S3/media/qrcode/#{params[:name]}.png"}
 
   # The priority is based upon order of creation:
   # first created -> highest priority.

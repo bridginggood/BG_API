@@ -11,7 +11,31 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 0) do
+ActiveRecord::Schema.define(:version => 20120225104052) do
+
+  create_table "apn_devices", :force => true do |t|
+    t.string   "token",              :default => "", :null => false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.datetime "last_registered_at"
+  end
+
+  add_index "apn_devices", ["token"], :name => "index_apn_devices_on_token", :unique => true
+
+  create_table "apn_notifications", :force => true do |t|
+    t.integer  "device_id",                        :null => false
+    t.integer  "errors_nb",         :default => 0
+    t.string   "device_language"
+    t.string   "sound"
+    t.string   "alert"
+    t.integer  "badge"
+    t.text     "custom_properties"
+    t.datetime "sent_at"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "apn_notifications", ["device_id"], :name => "index_apn_notifications_on_device_id"
 
   create_table "business_dtl", :primary_key => "BusinessId", :force => true do |t|
     t.string "BusinessRep", :limit => 50, :null => false
@@ -33,6 +57,11 @@ ActiveRecord::Schema.define(:version => 0) do
 
   add_index "business_info", ["BusinessId"], :name => "businessId_UNIQUE", :unique => true
 
+  create_table "business_infos", :force => true do |t|
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "charity_info", :primary_key => "CharityId", :force => true do |t|
     t.string    "CharityName",    :limit => 25,  :null => false
     t.string    "CharityAddress", :limit => 100, :null => false
@@ -49,9 +78,26 @@ ActiveRecord::Schema.define(:version => 0) do
 
   add_index "charity_info", ["CharityId"], :name => "charityId_UNIQUE", :unique => true
 
+  create_table "donation", :primary_key => "DonationId", :force => true do |t|
+    t.integer   "SupportId",                 :null => false
+    t.integer   "UserId",       :limit => 8, :null => false
+    t.timestamp "DonationDate",              :null => false
+  end
+
+  add_index "donation", ["DonationId"], :name => "transactionId_UNIQUE", :unique => true
+
+  create_table "push_notification_android", :primary_key => "DeviceId", :force => true do |t|
+    t.integer   "UserId",         :limit => 8,   :null => false
+    t.string    "RegistrationId", :limit => 200, :null => false
+    t.timestamp "CreatedAt",                     :null => false
+  end
+
+  create_table "push_notification_ios", :primary_key => "DeviceId", :force => true do |t|
+  end
+
   create_table "support", :primary_key => "SupportId", :force => true do |t|
-    t.string    "BusinessId",     :limit => 10, :null => false
-    t.string    "CharityId",      :limit => 10, :null => false
+    t.integer   "BusinessId",     :limit => 8,  :null => false
+    t.integer   "CharityId",      :limit => 8,  :null => false
     t.float     "DonationAmount",               :null => false
     t.timestamp "BeginDate",                    :null => false
     t.timestamp "EndDate",                      :null => false
@@ -61,19 +107,25 @@ ActiveRecord::Schema.define(:version => 0) do
     t.string    "UpdatedBy",      :limit => 10
   end
 
-  add_index "support", ["BusinessId"], :name => "fk_SUPPORT_BUSINESS_INFO"
-  add_index "support", ["CharityId"], :name => "fk_SUPPORT_CHARITY_INFO1"
   add_index "support", ["SupportId"], :name => "supportId_UNIQUE", :unique => true
 
-  create_table "transaction", :primary_key => "TransactionId", :force => true do |t|
-    t.integer   "SupportId",                     :null => false
-    t.string    "UserId",          :limit => 10, :null => false
-    t.timestamp "TransactionDate",               :null => false
+  create_table "token", :primary_key => "DeviceId", :force => true do |t|
+    t.integer   "UserId",      :limit => 8,  :null => false
+    t.string    "TokenString", :limit => 50, :null => false
+    t.timestamp "CreatedAt",                 :null => false
   end
 
-  add_index "transaction", ["SupportId"], :name => "fk_TRANSACTION_SUPPORT1"
-  add_index "transaction", ["TransactionId"], :name => "transactionId_UNIQUE", :unique => true
-  add_index "transaction", ["UserId"], :name => "fk_TRANSACTION_USER_INFO1"
+  add_index "token", ["DeviceId"], :name => "DeviceId", :unique => true
+  add_index "token", ["TokenString"], :name => "TokenString_UNIQUE", :unique => true
+
+  create_table "user_device_info", :primary_key => "DeviceId", :force => true do |t|
+    t.integer  "UserId",     :limit => 8,   :null => false
+    t.string   "DeviceType", :limit => 5,   :null => false
+    t.string   "QRCode",     :limit => 100, :null => false
+    t.datetime "CreatedAt",                 :null => false
+  end
+
+  add_index "user_device_info", ["DeviceId"], :name => "DeviceId", :unique => true
 
   create_table "user_info", :primary_key => "UserId", :force => true do |t|
     t.string    "UserEmail",     :limit => 50, :null => false

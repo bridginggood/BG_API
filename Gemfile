@@ -2,6 +2,8 @@ source 'http://rubygems.org'
 
 gem 'rails', '3.1.3'
 
+gem 'rack', '1.3.6'
+
 # Bundle edge Rails instead:
 # gem 'rails',     :git => 'git://github.com/rails/rails.git'
 
@@ -11,8 +13,9 @@ gem 'geocoder'
 gem 'factory_girl' # used to pass Geocoder
 #gem 'factory_girl_rails' # used to pass Geocoder
 
-#gem 'apn_on_rails'
-gem 'apn_on_rails', :git => 'https://github.com/natescherer/apn_on_rails.git', :branch => 'rails3'
+gem 'apn_on_rails', '0.3.1rails3'
+#gem 'apn_on_rails', :git => 'https://github.com/natescherer/apn_on_rails.git', :branch => 'rails3'
+#gem 'apn_on_rails-0.3.1rails3'
 gem 'speedy_c2dm'
 gem 'rqrcode'
 gem 'rqrcode_png'
@@ -31,7 +34,7 @@ gem 'jquery-rails'
 
 group :development do
   gem 'rspec-rails'
-	gem 'annotate', :git => 'git://github.com/ctran/annotate_models.git'
+	#gem 'annotate', :git => 'git://github.com/ctran/annotate_models.git'
 end
 
 group :test do
