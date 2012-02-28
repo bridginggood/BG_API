@@ -3,8 +3,8 @@
 # Table name: support
 #
 #  SupportId      :integer(4)      not null, primary key
-#  BusinessId     :string(10)      not null
-#  CharityId      :string(10)      not null
+#  BusinessId     :integer(8)      not null
+#  CharityId      :integer(8)      not null
 #  DonationAmount :float           not null
 #  BeginDate      :timestamp       not null
 #  EndDate        :timestamp       not null

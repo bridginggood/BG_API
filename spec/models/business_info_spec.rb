@@ -2,7 +2,7 @@
 #
 # Table name: business_info
 #
-#  BusinessId       :string(10)      not null, primary key
+#  BusinessId       :integer(8)      not null, primary key
 #  BusinessName     :string(25)      not null
 #  BusinessAddress  :string(100)     not null
 #  BusinessPhone    :string(25)      not null

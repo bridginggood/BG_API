@@ -17,14 +17,17 @@ module MySQL_SP
 	
 
 	# [JS] use this to call MySQL SPs
+	# @Return  returns sql query result as object
 	def self.call(sql, name = nil)
   	connection = Mysql2::Client.new(ActiveRecord::Base.configurations[Rails.env.to_s].symbolize_keys) 
   	begin
-    	connection.query(sql)
+    	result = connection.query(sql)
   	rescue NoMethodError
   	ensure
   		connection = Mysql2::Client.new(ActiveRecord::Base.configurations[Rails.env.to_s].symbolize_keys) #Reconnect 
   	end
+
+		return result
 	end
 
 end

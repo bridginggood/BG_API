@@ -1,4 +1,5 @@
 Api::Application.routes.draw do
+  post "donation/MakeDonation"
   post "push/android"
   get "push/ios"
 	post "push/ios"
@@ -6,6 +7,7 @@ Api::Application.routes.draw do
   post "auth/LoginByTokenFromMobile"
   post "auth/LoginByUserFromMobile"
 	post "auth/CreatePushNotificationAndroid"
+	post "auth/CreateQRCode"
 	get "business_info/index"
   get "business_info/create"
   get "business_info/read"
