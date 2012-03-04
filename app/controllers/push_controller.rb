@@ -28,6 +28,8 @@ class PushController < ApplicationController
     #notification.sound = true   
     #notification.alert = "My first push"   
     #notification.save   
-		APNS.sendMsg()
+		reg = params[:RegId]
+		msg = params[:Message]
+		APNS.sendMsg(reg,msg)
   end
 end
