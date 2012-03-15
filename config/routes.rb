@@ -6,13 +6,12 @@ Api::Application.routes.draw do
   post "auth/LoginByFacebookFromMobile"
   post "auth/LoginByTokenFromMobile"
   post "auth/LoginByUserFromMobile"
+	post "auth/Logout"
 	post "auth/CreatePushNotificationAndroid"
 	post "auth/CreateQRCode"
 	get "business_info/index"
-  get "business_info/create"
-  get "business_info/read"
-  get "business_info/update"
-  get "business_info/delete"
+  match "business_info/readlist" => "business_info#readList", :via=> :get 
+  match "business_info/readmap" => "business_info#readMap", :via=> :get 
 
 	#Redirection
 	#match "/media/qrcode/:name" => redirect{|params| "https://s3.amazonaws.com/BG_DEV_S3/media/qrcode/#{params[:name]}.png"}

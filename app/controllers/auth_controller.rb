@@ -21,7 +21,7 @@ class AuthController < ApplicationController
 		if(params[:TokenString].nil? or params[:DeviceId].nil?)
 			@result = {:resultCode => 'E100', :resultMsg => 'Invalid parameters'} 
 		else
-			query = "call LoginByTokenFromMobile('"+params[:TokenString]+"','"+params[:DeviceId]+"')"
+			query = "call LoginByToken('"+params[:TokenString]+"','"+params[:DeviceId]+"')"
 			@result = MySQL_SP.call(query)
 		end
 	
@@ -37,7 +37,7 @@ class AuthController < ApplicationController
 		if(params[:UserEmail].nil? or params[:UserPassword].nil? or params[:DeviceId].nil? or params[:DeviceType].nil?)
 			@result = {:resultCode => 'E100', :resultMsg => 'Invalid parameters'} 
 		else
-			query = "call LoginByUserFromMobile('"+params[:UserEmail]+"', '"+
+			query = "call LoginByUser('"+params[:UserEmail]+"', '"+
 						params[:UserPassword]+"', '"+params[:DeviceId]+"','"+params[:DeviceType]+"')"
 			@result = MySQL_SP.call(query)
 		end
@@ -47,9 +47,23 @@ class AuthController < ApplicationController
 			respond_to do |format|
 				format.json { render:json => @result.first.to_json}
 			end
-		else
 		end
   end
+
+	def Logout
+		if(params[:TokenString].nil?)
+			@result = {:resultCode => 'E100', :resultMsg => 'Invalid parameters'} 
+		else
+			query = "call Logout('"+params[:TokenString]+"')"
+			@result = MySQL_SP.call(query)
+		end
+
+		if !@result.nil?
+			respond_to do |format|
+				format.json { render:json => @result.first.to_json}
+			end
+		end
+	end
 
 	def CreatePushNotificationAndroid
 		if(params[:UserEmail].nil? or params[:C2DMRegId].nil? or params[:DeviceId].nil?)

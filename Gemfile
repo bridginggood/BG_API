@@ -11,7 +11,7 @@ gem 'mysql2'
 gem 'therubyracer'
 gem 'geocoder'
 gem 'factory_girl' # used to pass Geocoder
-#gem 'factory_girl_rails' # used to pass Geocoder
+gem 'will_paginate'
 
 gem 'apn_on_rails', '0.3.1rails3'
 #gem 'apn_on_rails', :git => 'https://github.com/natescherer/apn_on_rails.git', :branch => 'rails3'

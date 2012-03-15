@@ -5,4 +5,5 @@ require File.expand_path('../application', __FILE__)
 Api::Application.initialize!
 ActiveRecord::Base.pluralize_table_names = false
 
+require 'will_paginate'
 #require 'apn_on_rails'
