@@ -9,9 +9,10 @@ Api::Application.routes.draw do
 	post "auth/Logout"
 	post "auth/CreatePushNotificationAndroid"
 	post "auth/CreateQRCode"
-	get "business_info/index"
-  match "business_info/readlist" => "business_info#readList", :via=> :get 
-  match "business_info/readmap" => "business_info#readMap", :via=> :get 
+  match "business_info/readlist" => "business_info#readList", :via=> :get #deprecated
+  match "business_info/readmap" => "business_info#readMap", :via=> :get 	#deprecated
+	match "business_details/readlist" => "business_details#readList", :via => :get
+	match "business_details/readmap" => "business_details#readMap", :via => :get
 
 	#Redirection
 	#match "/media/qrcode/:name" => redirect{|params| "https://s3.amazonaws.com/BG_DEV_S3/media/qrcode/#{params[:name]}.png"}

@@ -13,9 +13,9 @@ development:
   adapter: mysql2
   encoding: utf8
   reconnect: false
-  database: BG_DEV
+  database: BG
   pool: 5
-  username: bg_dev
+  username: bg_user
   password: good##)^
   socket: /var/run/mysqld/mysqld.sock
   flags: <%= 65536 | 131072 %>

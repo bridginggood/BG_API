@@ -6,7 +6,7 @@ require 'digest/sha1'
 module QRCode
 	# filename must include full path of the file. (including png)
 	def self.generateQRCode(size=4, level=:m, width=256)
-		default_path = "/s3/BG_DEV_S3/media/qrcode/"
+		default_path = "/s3/BG_S3/media/qrcode/"
 
 		#Create QR content
 		qr_id = DateTime.now.strftime('%y%H%m%M%S%d%2L')+rand(10..99).to_s 
@@ -32,13 +32,13 @@ module QRCode
 			return 'E0002'
 		end	
 
-		return 'S0001:'+full_path+" Content:"+content
+		return 'S0001:'+full_path+" Content:"+content+ " CreatedAt: "+DateTime.now.strftime('%Y.%m.%d %H:%M:%S.%2L')
 	end
 
 
 	def self.runGenerator(num=10)
 		for i in (1..num)
-			sleep (rand(1..800)/100.0)
+			sleep (rand(6000..12000)/100.0)
 			puts QRCode.generateQRCode()
 		end
 	end
