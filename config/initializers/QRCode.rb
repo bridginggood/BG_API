@@ -36,10 +36,11 @@ module QRCode
 	end
 
 
-	def self.runGenerator(num=10)
+	def self.runGenerator(num=10, min=60000, max=120000)
 		for i in (1..num)
-			sleep (rand(6000..12000)/100.0)
+			sleep (rand(min..max)/1000.0)
 			puts QRCode.generateQRCode()
 		end
 	end
 end
+
