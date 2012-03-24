@@ -1,10 +1,10 @@
 class AuthController < ApplicationController
   def LoginByFacebookFromMobile
-		if(params[:UserEmail].nil? or params[:UserFirstName].nil? or params[:UserLastName].nil? or params[:DeviceId].nil? or params[:DeviceType].nil?)
+		if(params[:FacebookUid].nil? or params[:Email].nil? or params[:FirstName].nil? or params[:LastName].nil? or params[:DeviceId].nil? or params[:DeviceType].nil?)
 			@result = {:resultCode => 'E100', :resultMsg => 'Invalid parameters'} 
 		else
-			query = "call LoginByFacebookFromMobile('"+params[:UserEmail]+"','"+
-					params[:UserFirstName]+"','"+ params[:UserLastName]+"','"+
+			query = "call LoginByFacebook("+params[:FacebookUid]+",'"+
+					params[:Email]+"','"+ params[:FirstName]+"','"+params[:LastName]+"','"+
 					params[:DeviceId]+"','" + params[:DeviceType] + "')"
 			@result = MySQL_SP.call(query)
 		end
@@ -51,10 +51,10 @@ class AuthController < ApplicationController
   end
 
 	def Logout
-		if(params[:TokenString].nil?)
+		if(params[:UserId].nil? or params[:DeviceId].nil? or params[:DeviceType].nil?)
 			@result = {:resultCode => 'E100', :resultMsg => 'Invalid parameters'} 
 		else
-			query = "call Logout('"+params[:TokenString]+"')"
+			query = "call Logout("+params[:UserId]+",'"+params[:DeviceId]+"','"+params[:DeviceType]+"')"
 			@result = MySQL_SP.call(query)
 		end
 
@@ -65,33 +65,34 @@ class AuthController < ApplicationController
 		end
 	end
 
-	def CreatePushNotificationAndroid
-		if(params[:UserEmail].nil? or params[:C2DMRegId].nil? or params[:DeviceId].nil?)
+	def CreateC2DMDevice
+		if(params[:C2DMRegId].nil? or params[:DeviceId].nil?)
 			@result = {:resultCode => 'E100', :resultMsg => 'Invalid parameters'} 
 		else
-			query = "call CreatePushNotificationAndroid('"+params[:UserEmail]+"', '"+ params[:C2DMRegId]+"','"+params[:DeviceId]+"')"
+			query = "call CreateC2DMDevice('"+ params[:C2DMRegId]+"','"+params[:DeviceId]+"')"
 			@result = MySQL_SP.call(query)
+			if !@result.nil?
+				@result = @result.first
+			end
 		end
 		
 		if !@result.nil?
 			respond_to do |format|
-				format.json { render:json => @result.first.to_json}
+				format.json { render:json => @result.to_json}
 			end
-		else
 		end
 	end
 
-	def CreateQRCode
+	def CreateQrcodeFromMobile
 		#if parameters are empty, return error code
-		if(params[:UserId].nil? or params[:DeviceId].nil?)
+		if(params[:UserId].nil?)
 			resultCode = 'E100'
 			resultMsg = 'Invalid parameters'
+			@result = {:resultCode => resultCode, :resultMsg => resultMsg}
 		else
-			resultCode = QRCode.generateQRCode(params[:UserId], params[:DeviceId])
-			resultMsg = 'QRCode.generateQRCode called'
+			param = "'"+params[:UserId]+"'"
+			@result = QRCode.generateQRCode(param)
 		end
-
-		@result = {:resultCode => resultCode, :resultMsg => resultMsg}
 
 		if !@result.nil?
 			respond_to do |format|
@@ -100,4 +101,43 @@ class AuthController < ApplicationController
 		end
 	end
 
+	def RegisterQrcodeFromMobile
+		if(params[:UserId].nil? || params[:QrId].nil?)
+			resultCode = 'E100'
+			resultMsg = 'Invalid parameters'
+			@result = {:resultCode => resultCode, :resultMsg => resultMsg}
+		else
+			query = "call RegisterQrcode("+params[:UserId]+",'"+params[:QrId]+"')"
+			@result = MySQL_SP.call(query)
+			if !@result.nil?
+				@result = @result.first
+			end
+		end	
+
+		if !@result.nil?
+			respond_to do |format|
+				format.json { render:json =>@result.to_json }
+			end
+		end
+	end
+
+	def LoginByBusinessFromMobile
+		if(params[:Username].nil? || params[:Password].nil?)
+			resultCode = 'E100'
+			resultMsg = 'Invalid parameters'
+			@result = {:resultCode => resultCode, :resultMsg => resultMsg}
+		else
+			query = "call LoginByBusiness('"+params[:Username]+"','"+params[:Password]+"')"
+			@result = MySQL_SP.call(query)
+			if !@result.nil?
+				@result = @result.first
+			end
+		end	
+
+		if !@result.nil?
+			respond_to do |format|
+				format.json { render:json =>@result.to_json }
+			end
+		end
+	end
 end

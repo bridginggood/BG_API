@@ -16,10 +16,9 @@ gem 'will_paginate'
 gem 'apn_on_rails', '0.3.1rails3'
 #gem 'apn_on_rails', :git => 'https://github.com/natescherer/apn_on_rails.git', :branch => 'rails3'
 #gem 'apn_on_rails-0.3.1rails3'
-gem 'speedy_c2dm'
+gem 'speedy_c2dm', '1.0.2'
 gem 'rqrcode'
 gem 'rqrcode_png'
-#gem 'qrencoder'
 
 
 # Gems used only for assets and not required

@@ -1,18 +1,20 @@
 Api::Application.routes.draw do
-  post "donation/MakeDonation"
   post "push/android"
   get "push/ios"
 	post "push/ios"
-  post "auth/LoginByFacebookFromMobile"
   post "auth/LoginByTokenFromMobile"
   post "auth/LoginByUserFromMobile"
 	post "auth/Logout"
-	post "auth/CreatePushNotificationAndroid"
-	post "auth/CreateQRCode"
-  match "business_info/readlist" => "business_info#readList", :via=> :get #deprecated
-  match "business_info/readmap" => "business_info#readMap", :via=> :get 	#deprecated
 	match "business_details/readlist" => "business_details#readList", :via => :get
 	match "business_details/readmap" => "business_details#readMap", :via => :get
+
+	match "auth/LoginByFacebook" => "auth#LoginByFacebookFromMobile", :via => :post
+	match "auth/CreateQrcodeFromMobile" => "auth#CreateQrcodeFromMobile", :via => :post
+	match "auth/RegisterQrcodeFromMobile" => "auth#RegisterQrcodeFromMobile", :via => :post
+	match "auth/CreateC2DMDevice" => "auth#CreateC2DMDevice", :via => :post
+	match "auth/LoginByBusinessFromMobile" => "auth#LoginByBusinessFromMobile", :via => :post
+
+	match "donation/MakeDonation" => "donation#MakeDonation", :via => :post
 
 	#Redirection
 	#match "/media/qrcode/:name" => redirect{|params| "https://s3.amazonaws.com/BG_DEV_S3/media/qrcode/#{params[:name]}.png"}

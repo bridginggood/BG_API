@@ -3,8 +3,6 @@ module C2DM
 	#
 	# @return [Hash]
 	#
-	# [JS] This is a backup callBase method. Uses ActiveRecord:Base.
-	#	Not using this because it does not work with SPs with out parameters
 	def self.sendMsg(reg_id, message = "BridgingGood", extra_data = "", collapse_key="some-collapse-key")
 		options = {
 			:registration_id =>reg_id,
@@ -13,6 +11,6 @@ module C2DM
 			:collapse_key => collapse_key
 		}
 
-		response = SpeedyC2DM::API.send_notification(options)
+		return response = SpeedyC2DM::API.send_notification(options)
 	end
 end

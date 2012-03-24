@@ -1,3 +1,4 @@
+worker_processes 2
 # [JS] Modify this part
 working_directory "/var/web_test/api/"
 app_path = "/var/web_test/api"
