@@ -17,39 +17,6 @@ class AuthController < ApplicationController
 		end
   end
 
-  def LoginByTokenFromMobile
-		if(params[:TokenString].nil? or params[:DeviceId].nil?)
-			@result = {:resultCode => 'E100', :resultMsg => 'Invalid parameters'} 
-		else
-			query = "call LoginByToken('"+params[:TokenString]+"','"+params[:DeviceId]+"')"
-			@result = MySQL_SP.call(query)
-		end
-	
-		#If SP returned a result,
-		if !@result.nil?
-			respond_to do |format|
-				format.json { render:json => @result.first.to_json}
-			end
-		end
-  end
-
-  def LoginByUserFromMobile
-		if(params[:UserEmail].nil? or params[:UserPassword].nil? or params[:DeviceId].nil? or params[:DeviceType].nil?)
-			@result = {:resultCode => 'E100', :resultMsg => 'Invalid parameters'} 
-		else
-			query = "call LoginByUser('"+params[:UserEmail]+"', '"+
-						params[:UserPassword]+"', '"+params[:DeviceId]+"','"+params[:DeviceType]+"')"
-			@result = MySQL_SP.call(query)
-		end
-	
-		#If SP returned a result,
-		if !@result.nil?
-			respond_to do |format|
-				format.json { render:json => @result.first.to_json}
-			end
-		end
-  end
-
 	def Logout
 		if(params[:UserId].nil? or params[:DeviceId].nil? or params[:DeviceType].nil?)
 			@result = {:resultCode => 'E100', :resultMsg => 'Invalid parameters'} 
@@ -140,4 +107,40 @@ class AuthController < ApplicationController
 			end
 		end
 	end
+
+##############################NOT USED#################3
+  def LoginByTokenFromMobile
+		if(params[:TokenString].nil? or params[:DeviceId].nil?)
+			@result = {:resultCode => 'E100', :resultMsg => 'Invalid parameters'} 
+		else
+			query = "call LoginByToken('"+params[:TokenString]+"','"+params[:DeviceId]+"')"
+			@result = MySQL_SP.call(query)
+		end
+	
+		#If SP returned a result,
+		if !@result.nil?
+			respond_to do |format|
+				format.json { render:json => @result.first.to_json}
+			end
+		end
+  end
+
+##############################NOT USED#################3
+  def LoginByUserFromMobile
+		if(params[:UserEmail].nil? or params[:UserPassword].nil? or params[:DeviceId].nil? or params[:DeviceType].nil?)
+			@result = {:resultCode => 'E100', :resultMsg => 'Invalid parameters'} 
+		else
+			query = "call LoginByUser('"+params[:UserEmail]+"', '"+
+						params[:UserPassword]+"', '"+params[:DeviceId]+"','"+params[:DeviceType]+"')"
+			@result = MySQL_SP.call(query)
+		end
+	
+		#If SP returned a result,
+		if !@result.nil?
+			respond_to do |format|
+				format.json { render:json => @result.first.to_json}
+			end
+		end
+  end
+##############################NOT USED#################3
 end

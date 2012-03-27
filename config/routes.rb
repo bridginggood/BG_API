@@ -7,6 +7,7 @@ Api::Application.routes.draw do
 	post "auth/Logout"
 	match "business_details/readlist" => "business_details#readList", :via => :get
 	match "business_details/readmap" => "business_details#readMap", :via => :get
+	match "business_details/BusinessDetail" => "business_details#businessDetail", :via => :post
 
 	match "auth/LoginByFacebook" => "auth#LoginByFacebookFromMobile", :via => :post
 	match "auth/CreateQrcodeFromMobile" => "auth#CreateQrcodeFromMobile", :via => :post
@@ -15,6 +16,15 @@ Api::Application.routes.draw do
 	match "auth/LoginByBusinessFromMobile" => "auth#LoginByBusinessFromMobile", :via => :post
 
 	match "donation/MakeDonation" => "donation#MakeDonation", :via => :post
+
+	match "stats/UserTotalDonation"=>"stats#UserTotalDonation", :via => :post
+	match "stats/UserDonationByCharity"=>"stats#UserDonationByCharity", :via => :post
+	match "stats/UserDonationByPlace"=>"stats#UserDonationByPlace", :via => :post
+	match "stats/BusinessTodayCount"=>"stats#BusinessTodayCount", :via => :post
+	match "stats/BusinessAccountDetail"=>"stats#BusinessAccountDetail", :via => :post
+	match "stats/BusinessStatsDaily"=>"stats#BusinessStatsDaily", :via => :post
+
+	match "log/CreateSNSLog"=>"log#CreateSNSLog", :via => :post
 
 	#Redirection
 	#match "/media/qrcode/:name" => redirect{|params| "https://s3.amazonaws.com/BG_DEV_S3/media/qrcode/#{params[:name]}.png"}
