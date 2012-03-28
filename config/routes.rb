@@ -23,8 +23,13 @@ Api::Application.routes.draw do
 	match "stats/BusinessTodayCount"=>"stats#BusinessTodayCount", :via => :post
 	match "stats/BusinessAccountDetail"=>"stats#BusinessAccountDetail", :via => :post
 	match "stats/BusinessStatsDaily"=>"stats#BusinessStatsDaily", :via => :post
+	match "stats/BusinessStatsWeekly"=>"stats#BusinessStatsWeekly", :via => :post
+	match "stats/BusinessStatsMonthly"=>"stats#BusinessStatsMonthly", :via => :post
+	match "stats/CharityDonation"=>"stats#CharityDonation", :via => :post
 
 	match "log/CreateSNSLog"=>"log#CreateSNSLog", :via => :post
+
+	match "charity_details/GetCharityLatest"=>"charity_details#GetCharityLatest", :via => :post
 
 	#Redirection
 	#match "/media/qrcode/:name" => redirect{|params| "https://s3.amazonaws.com/BG_DEV_S3/media/qrcode/#{params[:name]}.png"}

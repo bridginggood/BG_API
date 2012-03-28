@@ -24,6 +24,12 @@ class DonationController < ApplicationController
   end
 
 	def SendPushNotification(userId, businessId, donationAmount)
+		#Return sucess result if userId is null
+		if userId.nil? 
+			@result = [{:resultCode => 'S100', :resultMsg=>'Success but no user found to send notification. This is unregistered donation'}]
+			return @result
+		end
+
 		query = "call FindDeviceToSendPushNotification("+userId.to_s+")"
 		@result = MySQL_SP.call(query)
 		count = 0

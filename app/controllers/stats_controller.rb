@@ -102,4 +102,55 @@ class StatsController < ApplicationController
 			end
 		end
 	end
+
+	def BusinessStatsWeekly
+		if(params[:BusinessId].nil? || params[:ResultCount].nil?)
+			resultCode = 'E100'
+			resultMsg = 'Invalid parameters'
+			@result = {:resultCode => resultCode, :resultMsg => resultMsg}
+		else
+			query = "call GetBusinessStatsWeekly("+params[:BusinessId]+","+params[:ResultCount]+")"
+			@result = MySQL_SP.call(query)
+		end	
+
+		if !@result.nil?
+			respond_to do |format|
+				format.json { render:json =>@result.to_json }
+			end
+		end
+	end
+
+	def BusinessStatsMonthly
+		if(params[:BusinessId].nil? || params[:ResultCount].nil?)
+			resultCode = 'E100'
+			resultMsg = 'Invalid parameters'
+			@result = {:resultCode => resultCode, :resultMsg => resultMsg}
+		else
+			query = "call GetBusinessStatsMonthly("+params[:BusinessId]+","+params[:ResultCount]+")"
+			@result = MySQL_SP.call(query)
+		end	
+
+		if !@result.nil?
+			respond_to do |format|
+				format.json { render:json =>@result.to_json }
+			end
+		end
+	end
+
+	def CharityDonation
+		if(params[:CharityId].nil?)
+			resultCode = 'E100'
+			resultMsg = 'Invalid parameters'
+			@result = {:resultCode => resultCode, :resultMsg => resultMsg}
+		else
+			query = "call GetCharityDonation("+params[:CharityId]+")"
+			@result = MySQL_SP.call(query)
+		end	
+
+		if !@result.nil?
+			respond_to do |format|
+				format.json { render:json =>@result.to_json }
+			end
+		end
+	end
 end
