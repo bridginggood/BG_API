@@ -24,22 +24,4 @@ class BusinessDetailsController < ApplicationController
 			format.json {render:json=>@bizList.to_json}
 		end
   end
-
-	def businessDetail
-		if(params[:BusinessId].nil?)
-			@result = {:resultCode => 'E100', :resultMsg => 'Invalid parameters'} 
-		else
-			query = "call GetBusinessDetail("+params[:BusinessId]+")"
-			@result = MySQL_SP.call(query)
-		end
-
-		#If sp returend a result,
-		if !@result.nil?
-			@result = @result.first
-			respond_to do |format|
-				format.json { render:json =>@result.to_json}
-			end
-		end
-	end
-
 end

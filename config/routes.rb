@@ -7,7 +7,7 @@ Api::Application.routes.draw do
 	post "auth/Logout"
 	match "business_details/readlist" => "business_details#readList", :via => :get
 	match "business_details/readmap" => "business_details#readMap", :via => :get
-	match "business_details/BusinessDetail" => "business_details#businessDetail", :via => :post
+	#match "business_details/BusinessDetail" => "business_details#businessDetail", :via => :post
 
 	match "auth/LoginByFacebook" => "auth#LoginByFacebookFromMobile", :via => :post
 	match "auth/CreateQrcodeFromMobile" => "auth#CreateQrcodeFromMobile", :via => :post
@@ -26,6 +26,9 @@ Api::Application.routes.draw do
 	match "stats/BusinessStatsWeekly"=>"stats#BusinessStatsWeekly", :via => :post
 	match "stats/BusinessStatsMonthly"=>"stats#BusinessStatsMonthly", :via => :post
 	match "stats/CharityDonation"=>"stats#CharityDonation", :via => :post
+	match "stats/ThankyouDetail"=>"stats#ThankyouDetail", :via => :post
+	match "stats/ThankyouDetail"=>"stats#ThankyouDetail", :via => :get
+	match "stats/UnreadNotifications"=>"stats#UnreadNotifications", :via => :get
 
 	match "log/CreateSNSLog"=>"log#CreateSNSLog", :via => :post
 

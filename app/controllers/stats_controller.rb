@@ -153,4 +153,38 @@ class StatsController < ApplicationController
 			end
 		end
 	end
+
+	def ThankyouDetail
+		if(params[:BusinessId].nil?)
+			resultCode = 'E100'
+			resultMsg = 'Invalid parameters'
+			@result = {:resultCode => resultCode, :resultMsg => resultMsg}
+		else
+			query = "call GetThankyouDetail("+params[:BusinessId]+")"
+			@result = MySQL_SP.call(query)
+		end	
+
+		if !@result.nil?
+			respond_to do |format|
+				format.json { render:json =>@result.to_json }
+			end
+		end
+	end
+	def UnreadNotifications 
+		if(params[:DeviceId].nil?)
+			resultCode = 'E100'
+			resultMsg = 'Invalid parameters'
+			@result = {:resultCode => resultCode, :resultMsg => resultMsg}
+		else
+			query = "call GetUnreadNotifications('"+params[:DeviceId]+"')"
+			@result = MySQL_SP.call(query)
+		end
+
+		if !@result.nil?
+			respond_to do |format|
+				format.json { render:json =>@result.to_json }
+			end
+		end
+	end
+
 end

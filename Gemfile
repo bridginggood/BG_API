@@ -31,8 +31,13 @@ end
 
 gem 'jquery-rails'
 
+group :production do
+  gem 'rack-google_analytics', :require => "rack/google_analytics"
+end
+
 group :development do
   gem 'rspec-rails'
+  gem 'rack-google_analytics', :require => "rack/google_analytics"
 	#gem 'annotate', :git => 'git://github.com/ctran/annotate_models.git'
 end
 
@@ -41,7 +46,6 @@ group :test do
   gem 'webrat'
   gem 'spork'
 end
-
 
 # To use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.0.0'

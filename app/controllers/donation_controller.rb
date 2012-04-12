@@ -9,7 +9,7 @@ class DonationController < ApplicationController
 
 			# if result is not empty and the call to CreateDonation was successful,
 			if !@result.nil? and @result.first['resultCode'][0] == 'S'
-				@result = SendPushNotification(@result.first['UserId'], params[:BusinessId], @result.first['DonationAmount'])
+				@result = SendPushNotification(@result.first['UserId'], params[:BusinessId], @result.first['DonationAmount'], @result.first['BusinessName'])
 			else
 				@result = {:resultCode => 'E101', :resultMsg => 'Call to CreateDon..SP was not successful'} 
 			end
@@ -23,7 +23,7 @@ class DonationController < ApplicationController
 		end
   end
 
-	def SendPushNotification(userId, businessId, donationAmount)
+	def SendPushNotification(userId, businessId, donationAmount, businessName)
 		#Return sucess result if userId is null
 		if userId.nil? 
 			@result = [{:resultCode => 'S100', :resultMsg=>'Success but no user found to send notification. This is unregistered donation'}]
@@ -37,7 +37,7 @@ class DonationController < ApplicationController
 		if !@result.nil? and !@result.first.nil? and @result.first['resultCode'][0] == 'S'
 
 			#TODO update the message content
-			message = 'DonationSuccess,'+businessId.to_s+','+donationAmount.to_s
+			message = businessId.to_s+';'+donationAmount.to_s+';'+businessName.to_s
 			
 			log = File.open("/var/log/bridginggood/push_notification.log", "a+")
 			#Loop each @result and send push notification
@@ -48,8 +48,10 @@ class DonationController < ApplicationController
 						log.puts ("Sent: "+Time.now.to_s+" | Type: C2DM | Token: "+row['Token']+" | Mesage: "+message+ " | Result: "+c2dmResult.body)		
 					end
 				elsif row['DeviceType'] == 'IOS'
+					badgeQuery = "call GetNumberOfUnreadNotifications('"+row['Token']+"')";
+					@badgeResult = MySQL_SP.call(query);
 						log.puts ("Sent: "+Time.now.to_s+" | Type: IOS  | Token: "+row['Token']+" | Mesage: "+message)		
-					APNS.sendMsg(row['Token'], 'New donation made!', message)	
+					APNS.sendMsg(@result.first['badge'],row['Token'], 'New donation made!', message)	
 				end
 
 				count = count+1
